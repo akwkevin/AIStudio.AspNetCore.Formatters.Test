@@ -1,3 +1,4 @@
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -15,11 +16,16 @@ namespace Zaabee.AspNetCore.Formatters.Utf8Json
             SupportedMediaTypes.Add(mediaTypeHeaderValue);
         }
 
-        public override Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context,
+        public override async Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context,
             Encoding encoding)
         {
             var request = context.HttpContext.Request;
-            return InputFormatterResult.SuccessAsync(request.Body.FromStream(context.ModelType));
+            MemoryStream stream = new MemoryStream();
+            await request.Body.CopyToAsync(stream);
+            stream.Position = 0;
+
+            var result = stream.FromStream(context.ModelType);
+            return await InputFormatterResult.SuccessAsync(result);
         }
     }
 }

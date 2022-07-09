@@ -15,8 +15,7 @@ namespace Zaabee.AspNetCore.Formatters.Test
         public static void MsgPackPost()
         {
             HttpClient client = new HttpClient();
-            var dtos = GetDtos();
-            var stream = dtos.ToStream();
+            var stream = _dtos.ToStream();
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:5001/api/Values/Post")
             {
                 Content = new StreamContent(stream)
@@ -29,6 +28,7 @@ namespace Zaabee.AspNetCore.Formatters.Test
 
             var result = responseForPost.Result.Content.ReadAsStreamAsync().Result.FromStream<List<TestDto>>();
 
+            Console.WriteLine("MsgPackPost Result Data");
             Console.WriteLine(JsonConvert.SerializeObject(result));
         }
     }

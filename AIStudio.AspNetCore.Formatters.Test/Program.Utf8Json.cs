@@ -13,7 +13,7 @@ namespace Zaabee.AspNetCore.Formatters.Test
         public static void Utf8JsonPost()
         {
             HttpClient client = new HttpClient();
-            var json = JsonConvert.SerializeObject(GetDtos());
+            var json = JsonConvert.SerializeObject(_dtos);
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:5001/api/Values/Post")
             {
                 Content = new StringContent(json, Encoding.UTF8, "application/x-utf8json")
@@ -26,6 +26,7 @@ namespace Zaabee.AspNetCore.Formatters.Test
             var result =
                 JsonConvert.DeserializeObject<List<TestDto>>(responseForPost.Result.Content.ReadAsStringAsync().Result);
 
+            Console.WriteLine("Utf8JsonPost Result Data");
             Console.WriteLine(JsonConvert.SerializeObject(result));
         }
     }

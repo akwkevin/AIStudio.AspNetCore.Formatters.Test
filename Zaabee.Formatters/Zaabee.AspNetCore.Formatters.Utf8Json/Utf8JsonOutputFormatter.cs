@@ -16,10 +16,10 @@ namespace Zaabee.AspNetCore.Formatters.Utf8Json
             SupportedMediaTypes.Add(mediaTypeHeaderValue);
         }
 
-        public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
+        public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
         {
             var response = context.HttpContext.Response;
-            return response.WriteAsync(context.Object.ToJson());
+            await response.WriteAsync(context.Object.ToJson());
         }
     }
 }

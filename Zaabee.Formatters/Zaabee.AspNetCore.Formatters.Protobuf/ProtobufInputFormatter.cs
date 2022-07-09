@@ -1,3 +1,4 @@
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
@@ -9,10 +10,15 @@ namespace Zaabee.AspNetCore.Formatters.Protobuf
     {
         public ProtobufInputFormatter(MediaTypeHeaderValue contentType) => SupportedMediaTypes.Add(contentType);
 
-        public override Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context)
+        public override async Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context)
         {
-            var result = context.HttpContext.Request.Body.FromStream(context.ModelType);
-            return InputFormatterResult.SuccessAsync(result);
+            var request = context.HttpContext.Request;
+            MemoryStream stream = new MemoryStream();
+            await request.Body.CopyToAsync(stream);
+            stream.Position = 0;
+
+            var result = stream.FromStream(context.ModelType);
+            return await InputFormatterResult.SuccessAsync(result);
         }
     }
 }

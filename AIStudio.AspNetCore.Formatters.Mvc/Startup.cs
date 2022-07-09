@@ -32,10 +32,6 @@ namespace Zaabee.AspNetCore.Formatters.Mvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //配置可以同步请求读取流数据
-            services.Configure<KestrelServerOptions>(x => x.AllowSynchronousIO = true)
-                .Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
-
             services.Configure<BrotliCompressionProviderOptions>(options =>
             {
                 options.Level = CompressionLevel.Optimal;

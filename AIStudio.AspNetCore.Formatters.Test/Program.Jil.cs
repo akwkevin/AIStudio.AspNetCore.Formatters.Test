@@ -14,8 +14,8 @@ namespace Zaabee.AspNetCore.Formatters.Test
         public static void JilPost()
         {
             HttpClient client = new HttpClient();
-            var dtos = GetDtos();
-            var json = dtos.ToJson(new Options(dateFormat: DateTimeFormat.ISO8601,
+
+            var json = _dtos.ToJson(new Options(dateFormat: DateTimeFormat.ISO8601,
                 excludeNulls: true, includeInherited: true,
                 serializationNameFormat: SerializationNameFormat.CamelCase));
 
@@ -31,6 +31,7 @@ namespace Zaabee.AspNetCore.Formatters.Test
                     excludeNulls: true, includeInherited: true,
                     serializationNameFormat: SerializationNameFormat.CamelCase));
 
+            Console.WriteLine("JsonPost Result Data");
             Console.WriteLine(JsonConvert.SerializeObject(result));
         }
     }

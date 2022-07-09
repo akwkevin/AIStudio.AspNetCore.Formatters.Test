@@ -9,10 +9,11 @@ namespace Zaabee.AspNetCore.Formatters.ZeroFormatter
     {
         public ZeroOutputFormatter(MediaTypeHeaderValue contentType) => SupportedMediaTypes.Add(contentType);
 
-        public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context)
+        public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context)
         {
-            context.HttpContext.Response.Body.PackBy(context.ObjectType, context.Object);
-            return Task.CompletedTask;
+            var response = context.HttpContext.Response;
+            var data = context.Object.ToBytes(context.ObjectType);
+            await response.Body.WriteAsync(data, 0, data.Length);
         }
     }
 }
