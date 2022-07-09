@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Zaabee.Serializers\Zaabee.Jil\Zaabee.Jil.csproj" />
+    <ProjectReference Include="..\Zaabee.Serializers\Zaabee.MsgPack\Zaabee.MsgPack.csproj" />
+    <ProjectReference Include="..\Zaabee.Serializers\Zaabee.Protobuf\Zaabee.Protobuf.csproj" />
+    <ProjectReference Include="..\Zaabee.Serializers\Zaabee.Utf8Json\Zaabee.Utf8Json.csproj" />
+    <ProjectReference Include="..\Zaabee.Serializers\Zaabee.ZeroFormatter\Zaabee.ZeroFormatter.csproj" />
+  </ItemGroup>
+
+</Project>
